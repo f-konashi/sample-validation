@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<title>バリデーションチェック</title>
+</head>
+<body>
+  <h1>バリデーションチェック</h1>
+  <form th:action="@{input}" th:object="${inputForm}" method="post">
+    <table>
+      <tr>
+        <th>コメントを書きますか？</th>
+        <td>
+          <input type="radio" name="needComment" value="yes" th:errorclass="fieldError" />はい
+          <input type="radio" name="needComment" value="no" th:errorclass="fieldError" />いいえ
+        </td>
+        <td th:if="${#fields.hasErrors('*')}">
+          <span class="ng" th:if="${#fields.hasErrors('needComment')}" th:errors="*{needComment}"></span>
+        </td>
+      </tr>
+      <tr>
+        <th>コメント欄(半角数字)</th>
+        <td>
+          <textarea name="comment" rows="4" cols="40" th:errorclass="fieldError"></textarea>
+        </td>
+        <td th:if="${#fields.hasErrors('*')}">
+          <span class="ng" th:if="${#fields.hasErrors('commentWithYes')}" th:errors="*{commentWithYes}"></span>
+         　　　　　 <span class="ng" th:if="${#fields.hasErrors('commentWithNo')}" th:errors="*{commentWithNo}"></span>
+          <span class="ng" th:if="${#fields.hasErrors('singleByteNum')}" th:errors="*{singleByteNum}"></span>
+        </td>
+      </tr>
+    </table>
+    <input class="submit" type="submit" value="送信" />
+  </form>
+</body>
+</html>
