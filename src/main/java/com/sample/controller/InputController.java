@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Locale;
 
-import com.sample.form.GroupOrder;
 import com.sample.form.InputForm;
 
 /**
@@ -44,13 +43,17 @@ public class InputController {
     
     /**
      * バリデーションします.
+     * バリデーションエラーがある場合は、エラーメッセージと共にinputFormページを表示します(自画面遷移).
+     * バリデーションエラーがない場合は、inputCompleteページを表示します.
      * 
      * @param model
+     * @param locale
+     * @param inputForm
+     * @param result
      * @return ブラウザに表示するページ
      */
     @RequestMapping("/input")
-    public String validate(Model model, Locale locale, @Validated(GroupOrder.class) InputForm inputForm, BindingResult result) {
-        // バリデーションエラーがあるか確認する。        
+    public String validate(Model model, Locale locale, @Validated(InputForm.GroupOrder.class) InputForm inputForm, BindingResult result) {
         if (result.hasErrors()) {
             return "inputForm";
         }
